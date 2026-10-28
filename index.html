@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Relative Dating Practice: Sort It Out</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1b21;--panel:#16272f;--panel2:#1c323b;--line:#2b4752;--ink:#e9f0ec;--muted:#9fb7b3;
+  --teal:#3fc1b0;--gold:#e6b450;--ember:#ee7b4d;--good:#4cc38a;--bad:#ef6a5b;
+  --serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --sans:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+[data-theme=light]{
+  --bg:#f5f3ec;--panel:#ffffff;--panel2:#eef3f1;--line:#c9d6d3;--ink:#15262b;--muted:#4e6866;
+  --teal:#12796c;--gold:#946a00;--ember:#b8461c;--good:#1d8a57;--bad:#c23b2d;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--sans)}
+.wrap{max-width:1040px;margin:0 auto;padding:22px 18px 60px}
+.top{display:flex;gap:12px;justify-content:space-between;align-items:flex-start}
+h1{font:700 clamp(26px,4.4vw,38px)/1.1 var(--serif);margin:0 0 6px;letter-spacing:-.01em}
+.sub{margin:0 0 16px;color:var(--muted);max-width:68ch}
+.themebtn{flex:none;background:var(--panel);color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:7px 12px;font:500 13px var(--sans);cursor:pointer}
+.themebtn:hover{color:var(--ink)}
+nav{display:flex;flex-wrap:wrap;gap:6px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:20px}
+nav button{background:transparent;color:var(--muted);border:1px solid transparent;border-radius:8px;padding:8px 13px;font:500 14px var(--sans);cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+nav button:hover{color:var(--ink);background:var(--panel)}
+nav button.on{color:var(--ink);background:var(--panel);border-color:var(--line)}
+.dot{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--muted);display:inline-block}
+.dot.done{background:var(--good);border-color:var(--good)}
+.round{display:none}.round.on{display:block}
+h2{font:700 24px/1.2 var(--serif);margin:0 0 8px}
+h3{font:700 18px/1.25 var(--serif);margin:0}
+h4{font:600 14px var(--sans);margin:0 0 8px;color:var(--muted)}
+p{margin:0 0 12px;max-width:74ch}
+.muted{color:var(--muted)}
+.pool{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;margin:14px 0}
+.cards{display:flex;flex-wrap:wrap;gap:8px}
+.card{font:500 14px/1.35 var(--sans);text-align:left;background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:9px 12px;cursor:pointer;max-width:100%}
+.card:hover{border-color:var(--teal)}
+.card.sel{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
+.card.ok{border-color:var(--good);box-shadow:inset 4px 0 0 var(--good);cursor:default}
+.card.bad{border-color:var(--bad);box-shadow:inset 4px 0 0 var(--bad)}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.bin{background:var(--panel);border:1.5px dashed var(--line);border-radius:12px;padding:12px;min-height:130px;cursor:pointer;display:flex;flex-direction:column;gap:8px}
+.bin.armed:hover{border-color:var(--gold)}
+.bin .cards{flex-direction:column}
+.bin .card{width:100%}
+.bin .hd span{display:block;font-size:13px;color:var(--muted);font-weight:400}
+.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:16px 0}
+.btn{background:var(--teal);color:#06231f;border:0;border-radius:8px;padding:9px 16px;font:600 14px var(--sans);cursor:pointer}
+[data-theme=light] .btn{color:#fff}
+.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.status{font-size:14px;color:var(--muted);flex:1;min-width:200px}
+.status.good{color:var(--good)}.status.warn{color:var(--gold)}
+.review{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:14px}
+.review ul{margin:6px 0 0;padding-left:20px}.review li{margin-bottom:6px}
+table{border-collapse:collapse;width:100%;margin:10px 0 16px;font-size:14.5px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left}
+th{background:var(--panel2);font-weight:600}
+.callout{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:8px;padding:12px 16px;margin:14px 0;max-width:80ch}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top">
+  <h1>Relative Dating Practice: Sort It Out</h1>
+  <button class="themebtn" id="themeBtn" type="button">Light theme</button>
+</div>
+<p class="sub">Three card sorts that build the vocabulary and the rules behind relative dating. Click a card to pick it up, then click the bin where it belongs. Press Check to see how you did.</p>
+<nav id="nav"></nav>
+<div id="rounds"></div>
+<noscript><p class="callout">This activity needs JavaScript turned on.</p></noscript>
+</div>
+
+<script>
+(function(){
+'use strict';
+var ROUNDS=[
+ {id:'r1',name:'Round 1: Absolute or relative?',
+  intro:'Absolute dating gives a specific number. Relative dating only puts things in order. Sort each statement.',
+  bins:[{id:'abs',name:'Absolute dating',sub:'Gives a number'},{id:'rel',name:'Relative dating',sub:'Gives an order'}],
+  cards:[
+   {t:'The trilobite fossil is 489 million years old.',b:'abs',w:'It gives a specific number of years.'},
+   {t:'Layer B is older than layer A.',b:'rel',w:'It compares two layers with no numbers.'},
+   {t:'Radioactive decay shows this granite crystallized 1.8 billion years ago.',b:'abs',w:'Radioactive decay gives a numeric age.'},
+   {t:'The fault is younger than the limestone it cuts.',b:'rel',w:'It tells you which came first, not how old either is.'},
+   {t:'This layer of sandstone is 225 million years old.',b:'abs',w:'A specific number again.'},
+   {t:'The shale formed before the intrusion that baked it.',b:'rel',w:'It gives an order of events only.'},
+   {t:'A carbon-14 test dates the wood to about 9,200 years old.',b:'abs',w:'Carbon dating gives a number.'},
+   {t:'The pebbles in a conglomerate are older than the conglomerate.',b:'rel',w:'Law of inclusions: a comparison, not a number.'},
+   {t:'The red car costs $90,000.',b:'abs',w:'A specific price is like a specific age.'},
+   {t:'The red car is more expensive than the silver car.',b:'rel',w:'A comparison with no numbers, like “older than.”'}
+  ]},
+ {id:'r2',name:'Round 2: Underwater or at the surface?',
+  intro:'Sedimentary layers usually form underwater. Weathering and erosion happen at the surface. Where did each thing happen?',
+  bins:[{id:'uw',name:'Formed underwater',sub:'Deposition and burial'},{id:'sf',name:'Happened at the surface',sub:'Out of the water'}],
+  cards:[
+   {t:'Sand, silt, and clay settle on the ocean floor.',b:'uw',w:'Sediment is deposited at the bottom of a body of water.'},
+   {t:'Wind and rain wear away an exposed cliff.',b:'sf',w:'Weathering and erosion work mainly on the surface.'},
+   {t:'Layers of sediment are pressed together into sedimentary rock.',b:'uw',w:'Over a very long time, the weight of the water and sediment compresses the layers.'},
+   {t:'Ice and snow break apart rock on a mountaintop.',b:'sf',w:'Ice and snow act on exposed rock above the water.'},
+   {t:'Pebbles and cobbles are deposited at the bottom of a body of water.',b:'uw',w:'Deposition of coarse sediment still happens underwater.'},
+   {t:'A river cuts into rock layers that were lifted out of the water.',b:'sf',w:'Rivers erode on land, so the rock had to be uplifted first.'},
+   {t:'New flat layers build up on a surface that has sunk back under water.',b:'uw',w:'After subsidence, deposition can start again.'},
+   {t:'Part of a folded layer is missing because it was worn away after uplift.',b:'sf',w:'Erosion removed it while it was above water.'}
+  ]},
+ {id:'r3',name:'Round 3: Which rule is it?',
+  intro:'Each card describes a clue from a rock cross-section. Decide which rule it uses.',
+  bins:[
+   {id:'sup',name:'Law of superposition',sub:'The bottom layer is oldest'},
+   {id:'hor',name:'Original horizontality',sub:'Layers start out flat'},
+   {id:'inc',name:'Law of inclusions',sub:'Pieces inside are older'},
+   {id:'cut',name:'Faults and intrusions',sub:'Younger than what they cut or bake'},
+   {id:'unc',name:'Unconformity',sub:'A buried, eroded surface'},
+   {id:'uni',name:'Uniformitarianism',sub:'Today’s processes worked the same in the past'}],
+  cards:[
+   {t:'In an undisturbed stack of layers, the bottom layer is the oldest.',b:'sup',w:'That is the definition of superposition.'},
+   {t:'Layer D lies below layers C, B, and A, so D was deposited first.',b:'sup',w:'Reading the order from bottom to top.'},
+   {t:'The youngest layer in this road cut is the one at the very top (nothing is overturned).',b:'sup',w:'Top layer = youngest when layers are not overturned.'},
+   {t:'These sandstone beds are tilted at 35 degrees, so something deformed them after they formed.',b:'hor',w:'Layers form flat, so a tilt came later.'},
+   {t:'The layers in a fold started out flat and horizontal.',b:'hor',w:'Original horizontality.'},
+   {t:'Sediment settles from water in flat layers, so any tilting must have happened afterward.',b:'hor',w:'Same rule, used to order the tilting after deposition.'},
+   {t:'Granite pebbles are cemented into a layer of conglomerate.',b:'inc',w:'The pebbles had to exist before the conglomerate did.'},
+   {t:'A sandstone layer contains small fragments of shale.',b:'inc',w:'The shale pieces are older than the sandstone around them.'},
+   {t:'Fragments of limestone are found inside a layer of conglomerate.',b:'inc',w:'Inclusions are older than the layer that holds them.'},
+   {t:'A fault breaks layers X, Y, and Z, so the fault is younger than all three.',b:'cut',w:'A fault is younger than every rock it cuts.'},
+   {t:'An igneous intrusion has baked the shale next to it, so the shale was already there.',b:'cut',w:'A baked layer existed before the magma arrived.'},
+   {t:'An intrusion passes through a fault without being broken, so the fault formed first.',b:'cut',w:'Something not broken by a fault is younger than the fault.'},
+   {t:'This is a buried, eroded surface where part of the rock record is missing.',b:'unc',w:'That describes an unconformity.'},
+   {t:'Folded layers are cut flat on top, and newer layers were then deposited across the cut surface.',b:'unc',w:'Uplift, erosion, subsidence, and burial leave an unconformity.'},
+   {t:'Uplift, weathering and erosion, then subsidence and burial create this feature.',b:'unc',w:'These three steps together form an unconformity.'},
+   {t:'Rivers deposit sediment today, so we assume ancient river deposits formed the same way.',b:'uni',w:'Present-day processes are used to interpret the past.'},
+   {t:'Volcanoes erupt today, so we assume similar ancient volcanic rocks came from eruptions.',b:'uni',w:'Same idea, applied to volcanic rocks.'},
+   {t:'Because processes we see today are assumed to have worked the same way before, we can read old rock layers.',b:'uni',w:'Uniformitarianism is an assumption that lets us interpret old layers.'}
+  ]}
+];
+function $(s,r){return (r||document).querySelector(s);}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+var S={};  // per-round state
+ROUNDS.forEach(function(R){
+  S[R.id]={place:R.cards.map(function(){return null;}),lock:R.cards.map(function(){return false;}),
+    bad:R.cards.map(function(){return false;}),first:R.cards.map(function(){return null;}),
+    order:shuffle(R.cards.map(function(_,i){return i;})),sel:null,checks:0,done:false};
+});
+
+var nav=$('#nav'),rounds=$('#rounds');
+nav.innerHTML=ROUNDS.map(function(R,i){return '<button type="button" data-r="'+R.id+'" class="'+(i===0?'on':'')+'">'+esc(R.name)+' <i class="dot" data-d="'+R.id+'"></i></button>';}).join('')+
+  '<button type="button" data-r="sum">Summary <i class="dot" data-d="sum"></i></button>';
+rounds.innerHTML=ROUNDS.map(function(R,i){return '<section class="round'+(i===0?' on':'')+'" id="rd-'+R.id+'"></section>';}).join('')+'<section class="round" id="rd-sum"></section>';
+
+function showRound(id){
+  nav.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.dataset.r===id);});
+  document.querySelectorAll('.round').forEach(function(s){s.classList.toggle('on',s.id==='rd-'+id);});
+  if(id==='sum')renderSummary();
+}
+nav.addEventListener('click',function(e){var b=e.target.closest('button');if(b)showRound(b.dataset.r);});
+
+function cardHTML(R,st,i){
+  var cls='card'+(st.sel===i?' sel':'')+(st.lock[i]?' ok':'')+(st.bad[i]?' bad':'');
+  return '<button type="button" class="'+cls+'" data-c="'+i+'">'+esc(R.cards[i].t)+(st.lock[i]?' ✓':'')+'</button>';
+}
+function renderRound(R){
+  var st=S[R.id],host=$('#rd-'+R.id);
+  var unplaced=st.order.filter(function(i){return st.place[i]===null;});
+  var binsHTML=R.bins.map(function(b){
+    var inb=st.order.filter(function(i){return st.place[i]===b.id;});
+    return '<div class="bin'+(st.sel!==null?' armed':'')+'" data-b="'+b.id+'" tabindex="0" role="button" aria-label="Place selected card in '+esc(b.name)+'"><div class="hd"><h3>'+esc(b.name)+'</h3><span>'+esc(b.sub)+'</span></div><div class="cards">'+inb.map(function(i){return cardHTML(R,st,i);}).join('')+'</div></div>';
+  }).join('');
+  var placedAll=unplaced.length===0;
+  host.innerHTML='<h2>'+esc(R.name)+'</h2><p>'+esc(R.intro)+'</p>'+
+    '<div class="pool"><h4>Cards to sort ('+unplaced.length+' left)</h4><div class="cards" id="pool-'+R.id+'">'+
+    (unplaced.map(function(i){return cardHTML(R,st,i);}).join('')||'<span class="muted">All cards are in bins.</span>')+'</div></div>'+
+    '<div class="bins">'+binsHTML+'</div>'+
+    '<div class="bar"><button type="button" class="btn" data-act="check"'+(st.done?' disabled':'')+'>Check my sort</button><button type="button" class="btn ghost" data-act="reset">Start over</button><span class="status" role="status" aria-live="polite" id="msg-'+R.id+'"></span></div>'+
+    '<div id="rev-'+R.id+'"></div>';
+  if(st.done)showReview(R);
+}
+function setMsg(R,t,c){var m=$('#msg-'+R.id);m.textContent=t;m.className='status '+(c||'');}
+function placeSel(R,binId){
+  var st=S[R.id];if(st.sel===null)return;
+  var i=st.sel;st.place[i]=binId;st.bad[i]=false;st.sel=null;renderRound(R);
+}
+function showReview(R){
+  var st=S[R.id],right=st.first.filter(function(v){return v===1;}).length;
+  var h='<div class="review"><h3>Round complete</h3><p>First-try correct: <b>'+right+' of '+R.cards.length+'</b> ('+Math.round(100*right/R.cards.length)+'%). Checks used: '+st.checks+'.</p><h4>Why each card goes where it does</h4><ul>';
+  R.bins.forEach(function(b){
+    R.cards.forEach(function(c){if(c.b===b.id)h+='<li><b>'+esc(b.name)+':</b> '+esc(c.t)+' <span class="muted">'+esc(c.w)+'</span></li>';});
+  });
+  $('#rev-'+R.id).innerHTML=h+'</ul></div>';
+  setMsg(R,'Every card is in the right bin.','good');
+}
+function bindRound(R){
+  var host=$('#rd-'+R.id),st=S[R.id];
+  host.addEventListener('click',function(e){
+    var card=e.target.closest('.card'),bin=e.target.closest('.bin'),act=e.target.closest('[data-act]');
+    if(act){
+      if(act.dataset.act==='reset'){
+        var s=S[R.id];s.place=R.cards.map(function(){return null;});s.lock=R.cards.map(function(){return false;});s.bad=R.cards.map(function(){return false;});s.first=R.cards.map(function(){return null;});s.order=shuffle(R.cards.map(function(_,i){return i;}));s.sel=null;s.checks=0;s.done=false;updateDots();renderRound(R);return;
+      }
+      if(act.dataset.act==='check'){
+        var placed=0,right=0,wrong=0;
+        R.cards.forEach(function(c,i){
+          if(st.place[i]===null||st.lock[i])return;
+          placed++;var ok=st.place[i]===c.b;
+          if(st.first[i]===null)st.first[i]=ok?1:0;
+          if(ok){st.lock[i]=true;st.bad[i]=false;right++;}else{st.bad[i]=true;wrong++;}
+        });
+        if(!placed){setMsg(R,'Place at least one card in a bin first.','warn');return;}
+        st.checks++;
+        var all=st.lock.every(Boolean);
+        if(all){st.done=true;updateDots();renderRound(R);return;}
+        renderRound(R);
+        setMsg(R,right+' correct, '+wrong+' not yet. Click a red card to pick it up and try another bin.'+(st.place.some(function(p){return p===null;})?' Some cards are still unsorted.':''),'warn');
+      }
+      return;
+    }
+    if(card){
+      var i=+card.dataset.c;
+      if(st.lock[i])return;
+      if(st.sel!==null&&st.sel!==i&&bin){placeSel(R,bin.dataset.b);return;}
+      if(st.place[i]!==null&&st.sel===null){st.place[i]=null;st.bad[i]=false;renderRound(R);return;}
+      st.sel=(st.sel===i)?null:i;renderRound(R);return;
+    }
+    if(bin&&st.sel!==null)placeSel(R,bin.dataset.b);
+  });
+  host.addEventListener('keydown',function(e){
+    var bin=e.target.closest&&e.target.closest('.bin');
+    if(bin&&e.target===bin&&(e.key==='Enter'||e.key===' ')){e.preventDefault();placeSel(R,bin.dataset.b);}
+  });
+}
+function updateDots(){
+  ROUNDS.forEach(function(R){$('.dot[data-d="'+R.id+'"]').className='dot'+(S[R.id].done?' done':'');});
+  $('.dot[data-d="sum"]').className='dot'+(ROUNDS.every(function(R){return S[R.id].done;})?' done':'');
+}
+function renderSummary(){
+  var host=$('#rd-sum'),tot=0,right=0,rows='',weak=[];
+  ROUNDS.forEach(function(R){
+    var st=S[R.id],r=st.first.filter(function(v){return v===1;}).length,n=R.cards.length;
+    var attempted=st.first.filter(function(v){return v!==null;}).length;
+    tot+=n;right+=r;
+    rows+='<tr><td>'+esc(R.name)+'</td><td>'+(attempted?r+' of '+n:'Not started')+'</td><td>'+st.checks+'</td><td>'+(st.done?'Complete':'In progress')+'</td></tr>';
+    R.cards.forEach(function(c,i){if(st.first[i]===0){var b=R.bins.filter(function(x){return x.id===c.b;})[0].name;if(weak.indexOf(b)<0)weak.push(b);}});
+  });
+  var all=ROUNDS.every(function(R){return S[R.id].done;});
+  host.innerHTML='<h2>Summary</h2><p class="muted">First-try accuracy counts a card as correct only if its first check was right. It shows what to review. It is practice, not a grade.</p>'+
+    '<table><thead><tr><th>Round</th><th>First-try correct</th><th>Checks used</th><th>Status</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+    (all?'<div class="callout"><b>Overall: '+right+' of '+tot+' correct on the first try ('+Math.round(100*right/tot)+'%).</b>'+(weak.length?'<br>Review these ideas in your notes: '+weak.map(esc).join(', ')+'.':'<br>No misses on the first try. Nice work.')+'</div>':'<p>Finish all three rounds to see your overall result.</p>');
+}
+ROUNDS.forEach(function(R){renderRound(R);bindRound(R);});
+updateDots();
+var tb=$('#themeBtn');
+tb.addEventListener('click',function(){var r=document.documentElement,l=r.getAttribute('data-theme')==='light';r.setAttribute('data-theme',l?'dark':'light');tb.textContent=l?'Light theme':'Dark theme';});
+window.__prac={ROUNDS:ROUNDS,S:S};
+})();
+</script>
+</body>
+</html>
